@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Tomatoes!</title>
+
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <style type="text/css" media="screen">
+        html {
+            background: url(background.jpg);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            height: 100%
+        }
+        body {
+            padding-top: 80px;
+            background: none;
+            color: white;
+        }
+        li{
+            list-style-type: none;
+        }
+        #info{
+            position: absolute;
+            bottom: -50%;
+            color: black;
+        }
+        #trailer .modal-dialog {
+            margin-top: 200px;
+            width: 740px;
+            height: 540px;
+        }
+        .hanging-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            z-index: 9001;
+        }
+        #trailer-video {
+            width: 100%;
+            height: 100%;
+        }
+        #myCarousel{
+            margin-top: 140px;
+        }
+        .movie-tile {
+            
+        }
+        .moviePoster:hover {
+            background-color: rgba(185, 185, 185, .75);
+            cursor: pointer;
+        }
+        .scale-media {
+            padding-bottom: 56.25%;
+            position: relative;
+        }
+        .scale-media iframe {
+            position: absolute;
+            border: none;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-color: black;
+        }
+        .modal-content{
+            height: 120%;
+            width: 100%;
+        }
+        .item{
+            text-align: center;
+        }
+        img{
+            margin: auto;
+        }
+        .moviePoster{
+            display: inline-table;
+            width: 30%;
+            margin-left: 20px;
+        }
+        @media only screen and (max-width: 740px){
+            html{
+                height: initial;
+            }
+            h2{
+                font-size: 1.75rem;
+            }
+            
+            #myCarousel{
+            margin-top: 0;
+            }
+
+            #trailer .modal-dialog{
+                margin-top: 20px;
+                height: 150%
+            }
+
+            .carousel-indicators{
+                padding-left:13px;
+                bottom: initial;
+                top: 55px
+            }
+            
+            .moviePoster{
+                width:50%;
+            }
+            .carousel-control .icon-prev, .carousel-control .icon-next, .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right{
+                position: fixed;
+            }
+            .carousel-control .icon-prev, .carousel-control .glyphicon-chevron-left{
+                left: initial;
+            }
+            .carousel-control .icon-next, .carousel-control .glyphicon-chevron-right{
+                right: initial;
+            }
+            .modal-content{
+                height: 100%;
+                width: 90%;
+            }
+
+            #info h2{
+                font-size: 2em;
+            }
+            
+            @media only screen and (orientation: portrait){
+        
+                .modal-content{
+                    height: 90%;
+                    width: 50%;
+                }
+                #info{
+                    bottom: -100%
+                }
+                
+                #trailer .modal-dialog{
+                    margin-top: 140px;
+                    height: 75%;
+                }
+
+            }
+
+        }
+        @media only screen and (min-width: 320px) and (max-width: 740px) and (orientation: landscape){
+            .modal-content {
+                height: 75%;
+                width: 96%;
+                margin-left: 2px;
+            }
+            .scale-media iframe{
+                height: 70%
+            }
+        
+            #info{
+                bottom: -18%
+            }
+    </style>
+    <script type="text/javascript" charset="utf-8">
+         
+        // Pause the video when the modal is closed
+        $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
+            // Remove the src so the player itself gets removed, as this is the only
+            // reliable way to ensure the video stops playing in IE
+            $("#trailer_video").removeAttr("src");
+        });
+        /* Start playing the video whenever the trailer modal is opened.
+        Additionally, it pulls the movie information from the movie clicked, and adds the information to the modal.*/
+        $(document).on('click', '.moviePoster', function (event) {
+            var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
+            var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
+            var movie_title = $(this).attr('data-title')
+            var movie_director = $(this).attr('data-director')
+            var movie_summary = $(this).attr('data-summary')
+            var movie_rating = $(this).attr('data-rating')
+            var movie_year = $(this).attr('data-year')
+            $("#trailer_video").attr(
+              {type: 'text-html',
+              src: sourceUrl,
+              frameborder: 0
+            });
+            $("#title").empty().append((movie_title + " (" + movie_year + ")"));
+            $("#rating").empty().append("Rated: "+(movie_rating));
+            $("#director").empty().append("Director: "+(movie_director));
+            $("#summary").empty().append("Summary: "+(movie_summary));
+            
+        });
+        
+    </script>
+</head>
+
+  <body>
+    <!-- Trailer Video Modal -->
+    <div class="modal" id="trailer">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+            <img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
+          </a>
+          <div class="scale-media" id="trailer-video-container">
+            <iframe id="trailer_video"></iframe>
+            <div id="info">
+                <h2 id="title"></h2>
+                <ul>
+                <li id="rating"></li>
+                <li id="director"></li>
+                <li id="summary"></li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Page Content -->
+    <div class="container">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Adrien's Favorite Movies</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="movies">
+        <div id="myCarousel" class="slide" data-interval="false">
+            <!-- Pages -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+
+              <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  
+<div class="moviePoster" data-trailer-youtube-id="CmRih_VtVAs" data-title="Suicide Squad" data-director="David Ayer" data-summary="A secret government agency led by Amanda Waller recruits imprisoned supervillains to execute dangerous black ops missions and save the world from a powerful threat, in exchange for leaner sentences." data-year="2016" data-rating="PG-13" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/5/50/Suicide_Squad_%28film%29_Poster.png" width="80%" height="80%">
+    <h2>Suicide Squad</h2>
+</div>
+
+<div class="moviePoster" data-trailer-youtube-id="muc7xqdHudI" data-title="Do the Right Thing" data-director="Spike Lee" data-summary="The movie tells the story of a Brooklyn neighborhood's simmering racial tension, which comes to a head and culminates in tragedy on the hottest day of summer." data-year="1989" data-rating="R" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/0/03/Do_the_Right_Thing_poster.png" width="80%" height="80%">
+    <h2>Do the Right Thing</h2>
+</div>
+
+<div class="moviePoster" data-trailer-youtube-id="8qrB9I3DM80" data-title="The Nightmare Before Christmas" data-director="Henry Selick" data-summary="Jack Skellington, king of Halloween Town, discovers Christmas Town, but doesn't quite understand the concept." data-year="1993" data-rating="PG" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/9/9a/The_nightmare_before_christmas_poster.jpg" width="80%" height="80%">
+    <h2>The Nightmare Before Christmas</h2>
+</div>
+
+                 </div>
+                 <div class="item">
+                 
+<div class="moviePoster" data-trailer-youtube-id="JAAhQwcJ20U" data-title="Don't Be a Menace to South Central While Drinking Your Juice in the Hood" data-director="Paris Barclay" data-summary="'Don't Be a Menace to South Central While Drinking your Juice in the Hood' is a parody of several U.S. films about being in the 'Hood', for instance 'Boyz n the Hood', 'South Central', 'Menace II Society', 'Higher Learning' and 'Juice'." data-year="1996" data-rating="R" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/f/fd/Dontbeamenace.jpg" width="80%" height="80%">
+    <h2>Don't Be a Menace to South Central While Drinking Your Juice in the Hood</h2>
+</div>
+
+<div class="moviePoster" data-trailer-youtube-id="Tv8xk7BKaNM" data-title="The Spongebob Squarepants Movie" data-director="Stephen Hillenburg" data-summary="SpongeBob SquarePants takes leave from the town of Bikini Bottom in order to track down King Neptune's stolen crown." data-year="2004" data-rating="PG" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/3/31/The_SpongeBob_SquarePants_Movie_poster.jpg" width="80%" height="80%">
+    <h2>The Spongebob Squarepants Movie</h2>
+</div>
+
+<div class="moviePoster" data-trailer-youtube-id="strEm9amZuo" data-title="Dope" data-director="Rick Famuyiwa" data-summary="Life changes for Malcolm, a geek who's surviving life in a tough neighborhood, after a chance invitation to an underground party leads him and his friends into a Los Angeles adventure." data-year="2015" data-rating="R" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/d/d2/DopeTeaserPoster.jpg" width="80%" height="80%">
+    <h2>Dope</h2>
+</div>
+
+                 </div>
+                 <div class="item">
+                 
+<div class="moviePoster" data-trailer-youtube-id="W37DlG1i61s" data-title="Shrek" data-director="Andrew Adamson" data-summary="After his swamp is filled with magical creatures, an ogre agrees to rescue a princess for a villainous lord in order to get his land back." data-year="2001" data-rating="PG" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/3/39/Shrek.jpg" width="80%" height="80%">
+    <h2>Shrek</h2>
+</div>
+
+<div class="moviePoster" data-trailer-youtube-id="aFYCQoIpGuE" data-title="A Goofy Movie" data-director="Kevin Lima" data-summary="When Max makes an preposterous promise to a girl he has a crush on, his chances to fulfilling it seem hopeless when he is dragged onto a cross-country trip with his embarrassing father, Goofy." data-year="1995" data-rating="G" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/f/f3/A_Goofy_Movie_poster.jpg" width="80%" height="80%">
+    <h2>A Goofy Movie</h2>
+</div>
+
+<div class="moviePoster" data-trailer-youtube-id="Bzz4EQ2NmpQ" data-title="Scooby Doo" data-director="Raja Gosnell" data-summary="After an acrimonious break up, the Mystery Inc. gang are individually brought to an island resort to investigate strange goings on." data-year="2005" data-rating="PG" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/a/ae/Scooby-Doo_poster.jpg" width="80%" height="80%">
+    <h2>Scooby Doo</h2>
+</div>
+
+                 </div>
+              </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+    </div>
+  </body>
+</html>
