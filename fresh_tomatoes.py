@@ -179,7 +179,7 @@ main_page_head = '''
         Additionally, it pulls the movie information from the movie clicked, and adds the information to the modal.*/
         $(document).on('click', '.moviePoster', function (event) {
             var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
-            var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
+            var sourceUrl = 'https://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
             var movie_title = $(this).attr('data-title')
             var movie_director = $(this).attr('data-director')
             var movie_summary = $(this).attr('data-summary')
